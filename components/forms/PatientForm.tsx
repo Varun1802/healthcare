@@ -10,6 +10,7 @@ import SubmitButton from "../SubmitButton";
 import { useState } from "react";
 import { UserFormValidation } from "@/lib/validation";
 import { useRouter } from "next/navigation";
+import { createUser } from "@/lib/actions/patient.actions";
 
 export enum FormFieldType {
   INPUT = "input",
@@ -41,9 +42,9 @@ const PatientForm = () => {
     setIsLoading(true);
 
     try {
-      // const userData = { name, email, phone };
-      // const user = await createUser(userData);
-      // if (user) router.push(`/patients/${user.$id}/register`);
+      const userData = { name, email, phone };
+      const user = await createUser(userData);
+      if (user) router.push(`/patients/${user.$id}/register`);
     } catch (error) {
       console.log(error);
     }
@@ -60,7 +61,7 @@ const PatientForm = () => {
           fieldType={FormFieldType.INPUT}
           control={form.control}
           name="name"
-          label="Full name"
+          label="Full Name"
           placeholder="Varun choudhary"
           iconSrc="/assets/icons/user.svg"
           iconAlt="user"
@@ -78,7 +79,7 @@ const PatientForm = () => {
           fieldType={FormFieldType.PHONE_INPUT}
           control={form.control}
           name="phone"
-          label="Phone number"
+          label="Phone Number"
           placeholder="(555) 123-4567"
         />
         <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>{" "}
